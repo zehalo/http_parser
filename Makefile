@@ -55,7 +55,7 @@ CFLAGS_LIB = $(CFLAGS_FAST) -fPIC
 LDFLAGS_LIB = $(LDFLAGS) -shared
 
 INSTALL ?= install
-PREFIX ?= $(DESTDIR)/usr/local
+PREFIX ?= $(DESTDIR)/usr
 LIBDIR = $(PREFIX)/lib
 INCLUDEDIR = $(PREFIX)/include
 
