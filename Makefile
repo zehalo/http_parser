@@ -64,12 +64,15 @@ ifneq (darwin,$(PLATFORM))
 LDFLAGS_LIB += -Wl,-soname=$(SONAME)
 endif
 
-test: test_g test_fast
+test: test_g test_fast demo
 	$(HELPER) ./test_g$(BINEXT)
 	$(HELPER) ./test_fast$(BINEXT)
 
 test_g: http_parser_g.o test_g.o
 	$(CC) $(CFLAGS_DEBUG) $(LDFLAGS) http_parser_g.o test_g.o -o $@
+
+demo: http_parser.o demo.o
+	$(CC) $(CFLAGS_DEBUG) $(LDFLAGS) http_parser.o demo.o -o $@
 
 test_g.o: test.c http_parser.h Makefile
 	$(CC) $(CPPFLAGS_DEBUG) $(CFLAGS_DEBUG) -c test.c -o $@
@@ -82,6 +85,9 @@ test_fast: http_parser.o test.o http_parser.h
 
 test.o: test.c http_parser.h Makefile
 	$(CC) $(CPPFLAGS_FAST) $(CFLAGS_FAST) -c test.c -o $@
+
+demo.o:	demo.c http_parser.h Makefile
+	$(CC) $(CPPFLAGS_FAST) $(CFLAGS_FAST) -Wno-error=unused-but-set-variable -c demo.c -o $@
 
 bench: http_parser.o bench.o
 	$(CC) $(CFLAGS_BENCH) $(LDFLAGS) http_parser.o bench.o -o $@

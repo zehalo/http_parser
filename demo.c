@@ -64,7 +64,6 @@ int
 main (void)
 {
   const char *buf;
-  int i;
   float start, end;
   size_t parsed;
 
@@ -73,10 +72,10 @@ main (void)
   buf = "GET http://admin.omsg.cn/uploadpic/2016121034000012.png HTTP/1.1\r\nHost: admin.omsg.cn\r\nAccept: */*\r\nConnection: Keep-Alive\r\n\r\n";
 
   start = (float)clock()/CLOCKS_PER_SEC;
-  for (i = 0; i < 1; i++) {
-    http_parser_init(parser, HTTP_REQUEST);
-    parsed = http_parser_execute(parser, &settings_null, buf, strlen(buf));
-  }
+
+ http_parser_init(parser, HTTP_REQUEST);
+ parsed = http_parser_execute(parser, &settings_null, buf, strlen(buf));
+
   end = (float)clock()/CLOCKS_PER_SEC;
 
 
